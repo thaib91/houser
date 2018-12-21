@@ -13,8 +13,8 @@ export default class Dashboard extends Component {
         }
     }
 
-    componentDidMount() {
-        axios.get("/api/houses")
+    componentDidMount = () => {
+        axios.get('/api/houses')
             .then(res => {
                 console.log(res)
                 this.setState({
@@ -24,12 +24,22 @@ export default class Dashboard extends Component {
             })
     }
 
+    deletePost = (id) => {
+        axios.delete(`/api/house/${id}`)
+            .then(res => {
+                this.setState({
+                    houses: res.data
+                })
+            })
+    }
+
 
 
     render() {
-        let displayHome = this.state.houses.map(house=>{
-            return(
-                <House 
+        let displayHome = this.state.houses.map(house => {
+            return (
+                <div>
+                <House
                     key={house.id}
                     id={house.id}
                     name={house.name}
@@ -37,7 +47,10 @@ export default class Dashboard extends Component {
                     city={house.city}
                     state={house.state}
                     zip={house.zip}
+                    deletePost={this.deletePost}
                 />
+                
+                </div>
             )
         })
 
@@ -49,8 +62,8 @@ export default class Dashboard extends Component {
                         Add New Property
                 </button>
                 </Link>
-                
-            {displayHome}    
+
+                {displayHome}
 
             </div>
         )

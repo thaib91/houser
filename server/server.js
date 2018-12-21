@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.get('/api/houses', mc.getAll)
 app.post('/api/house', mc.createPost)
+app.delete(`/api/house/:id`, mc.deletePost)
 
 
 const PORT=4000;
